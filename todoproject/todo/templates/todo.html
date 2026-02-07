@@ -1,0 +1,37 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Todo List</title>
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+</head>
+
+<body>
+
+<div class="todo-container">
+    <h2>My Todo List</h2>
+
+    <form method="POST">
+        {% csrf_token %}
+        <input type="text" name="title" placeholder="Enter a task">
+        <button type="submit" class="add-btn">Add</button>
+    </form>
+
+    <ul class="todo-list">
+        {% for task in tasks %}
+            <li>{{ task.title }}</li>
+            <a href="{% url 'delete_task' task.id %}"
+            class="delete-btn">
+            DELETE
+        </a>
+        </li>
+        {% empty %}
+            <li>No tasks yet</li>
+        {% endfor %}
+    </ul>
+    
+</div>
+
+</body>
+</html>
